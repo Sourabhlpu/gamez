@@ -4,7 +4,7 @@ data class Sport(
     val id: Long,
     val name: String,
     val sportType: SportType,
-    val playersInTeam: Int,
+    val playersInTeam: Int
 ){
     val isTeamSport
     get() = playersInTeam > 1
