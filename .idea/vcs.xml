@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/adva-materials" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/atdd-materials" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/jet-materials" vcs="Git" />
+  </component>
+</project>
