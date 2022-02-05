@@ -6,5 +6,5 @@ class PlayerWithDetails(
     val id: Long,
     val username: String,
     val createdAt: LocalDateTime,
-    val details: Details
+    val details: PlayerDetails
 )
