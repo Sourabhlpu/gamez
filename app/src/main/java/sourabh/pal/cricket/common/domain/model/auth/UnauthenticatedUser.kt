@@ -5,4 +5,4 @@ data class UnauthenticatedUser(
     private val email: String,
     private val password: String,
 
-)
+) : IAuthUser
