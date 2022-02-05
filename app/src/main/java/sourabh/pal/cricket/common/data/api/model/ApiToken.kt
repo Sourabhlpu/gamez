@@ -19,7 +19,7 @@ data class ApiToken(
     @Transient
     private val requestedAt: Instant = Instant.now()
 
-    val expiresIn: Long
+    val expiresAt: Long
     get() {
         if(expiresInSeconds == null) return 0L
 

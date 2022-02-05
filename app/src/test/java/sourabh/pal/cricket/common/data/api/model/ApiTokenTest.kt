@@ -3,7 +3,6 @@ package sourabh.pal.cricket.common.data.api.model
 import com.github.javafaker.Faker
 import org.junit.Assert.*
 import org.junit.Test
-import kotlin.math.exp
 
 class ApiTokenTest{
     val faker = Faker()
@@ -18,7 +17,7 @@ class ApiTokenTest{
             faker.random().toString()
         )
 
-        val expiresIn = validToken.expiresIn
+        val expiresIn = validToken.expiresAt
 
         //THEN
         assert(expiresIn > 0)
@@ -35,7 +34,7 @@ class ApiTokenTest{
         )
 
         //WHEN
-        val expiresIn = expiredToken.expiresIn
+        val expiresIn = expiredToken.expiresAt
 
         //THEN
         assert(expiresIn <= 0L)
