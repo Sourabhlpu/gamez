@@ -1,0 +1,24 @@
+{
+  "animals": [
+    {
+      "id": 124,
+      "username": "Sourabh",
+      "published_at": "2018-09-04T14:49:09+0000",
+      "location": {
+        "lat": 0.00,
+        "longitude": 0.0
+      },
+      "contact": {
+        "email": "petfindertechsupport@gmail.com",
+        "phone": "555-555-5555"
+      }
+    }
+  ],
+  "pagination": {
+    "count_per_page": 20,
+    "total_count": 320,
+    "current_page": 1,
+    "total_pages": 16,
+    "_links": {}
+  }
+}

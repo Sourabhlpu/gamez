@@ -7,7 +7,7 @@ import org.threeten.bp.Instant
 
 @JsonClass(generateAdapter = true)
 data class ApiToken(
-    @field:Json(name = "type_token") val tokenType: String?,
+    @field:Json(name = "token_type") val tokenType: String?,
     @field:Json(name = "expires_in") val expiresInSeconds: Int?,
     @field:Json(name = "access_token") val accessToken: String?
     ){

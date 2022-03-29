@@ -5,6 +5,8 @@ object ApiConstants {
     const val SIGNUP_ENDPOINT = "signup"
     const val LOGIN_ENDPOINT = "login"
     const val AUTH_ENDPOINT = "token"
+    const val NEARBY_PLAYERS_ENDPOINT = "nearby"
+    const val ALL_SPORTS_ENDPOINT = "sports"
 
 }
 
@@ -16,5 +18,8 @@ object ApiParameters {
 
 
     const val PAGE = "page"
+    const val LIMIT = "limit"
+    const val LOCATION = "location"
+    const val DISTANCE = "distance"
 
 }
