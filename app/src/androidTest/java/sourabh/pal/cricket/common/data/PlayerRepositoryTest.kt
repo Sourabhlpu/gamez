@@ -19,6 +19,8 @@ import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
 import sourabh.pal.cricket.common.data.api.GameApi
+import sourabh.pal.cricket.common.data.api.mappers.ApiPaginationMapper
+import sourabh.pal.cricket.common.data.api.mappers.ApiPlayerDetailsMapper
 import sourabh.pal.cricket.common.data.api.utils.FakeServer
 import sourabh.pal.cricket.common.data.cache.Cache
 import sourabh.pal.cricket.common.data.cache.GameDatabase
@@ -52,6 +54,13 @@ class PlayerRepositoryTest {
 
     @Inject
     lateinit var retrofitBuilder: Retrofit.Builder
+
+
+    @Inject
+    lateinit var apiPlayerMapper: ApiPlayerDetailsMapper
+
+    @Inject
+    lateinit var apiPaginationMapper: ApiPaginationMapper
 
     @BindValue
     @JvmField
@@ -92,7 +101,9 @@ class PlayerRepositoryTest {
 
         repository = PlayerRepositoryIml(
             api,
-            cache
+            cache,
+            apiPlayerMapper,
+            apiPaginationMapper
         )
     }
 

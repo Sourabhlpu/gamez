@@ -8,7 +8,7 @@ import sourabh.pal.cricket.common.data.api.model.sport.ApiSport
 data class ApiPlayer(
     @field:Json(name = "id") val id: Long?,
     @field:Json(name = "username")  val username: String?,
-    @field:Json(name = "createdAt") val createdAt: Long,
+    @field:Json(name = "createdAt") val createdAt: String?,
     @field:Json(name = "details") val details: ApiPlayerDetails
 )
 
