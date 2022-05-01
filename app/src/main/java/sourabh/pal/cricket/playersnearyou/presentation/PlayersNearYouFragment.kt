@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import sourabh.pal.cricket.common.presentation.PlayersAdapter
 import sourabh.pal.cricket.databinding.FragmentPlayersNearYouBinding
@@ -31,6 +33,36 @@ class PlayersNearYouFragment: Fragment() {
 
     private fun setupUI() {
         val adapter = createAdapter()
+        setupRecyclerView(adapter)
+    }
+
+    private fun setupRecyclerView(playersAdapter: PlayersAdapter) {
+        binding.animalsRecyclerView.apply {
+            adapter = playersAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
+        }
+
+    }
+
+    private fun createInfiniteScrollListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
+        return object: InfiniteScrollListener(
+            layoutManager,
+            10
+        ){
+            override fun loadMoreItems() {
+                TODO("Not yet implemented")
+            }
+
+            override fun isLastPage(): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun isLoading(): Boolean {
+                TODO("Not yet implemented")
+            }
+        }
     }
 
     private fun createAdapter(): PlayersAdapter {
