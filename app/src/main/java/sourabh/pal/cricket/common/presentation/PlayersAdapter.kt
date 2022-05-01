@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import sourabh.pal.cricket.common.utils.setImage
 import sourabh.pal.cricket.databinding.RecyclerViewPlayerItemBinding
-import sourabh.pal.cricket.playersnearyou.presentation.model.UIPlayer
+import sourabh.pal.cricket.common.presentation.model.UIPlayer
 
 class PlayersAdapter: ListAdapter<UIPlayer, PlayersAdapter.PlayersViewHolder>(ITEM_COMPARATOR) {
 

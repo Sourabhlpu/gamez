@@ -12,13 +12,17 @@ buildscript {
         hilt_version = '2.31.2-alpha'
         androidx_hilt_version = "1.0.0-alpha03"
         room_version = "2.2.6"
-        lifecycle_version = "2.0.0"
+        rxjava_version = "2.2.19"
+        rxkotlin_version = "2.4.0"
+        rxandroid_version = "2.1.1"
+        lifecycle_version = "2.1.0"
         java_faker_version = "0.16"
         robolectric_version = "4.4"
         google_truth_version = "1.0"
         androidx_core_testing_version = "2.1.0"
         mockito_version = "3.5.15"
         glide_version = "4.11.0"
+
     }
     repositories {
         google()

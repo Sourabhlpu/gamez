@@ -1,4 +1,4 @@
-package sourabh.pal.cricket.playersnearyou.presentation.model
+package sourabh.pal.cricket.common.presentation.model
 
 data class UIPlayer(
     val id: Long,
