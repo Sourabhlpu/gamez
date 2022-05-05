@@ -36,7 +36,7 @@ class PlayersNearYouFragmentViewModel @Inject constructor(
     }
 
     val state: LiveData<PlayerNearYouViewState> get() = _state
-    var isLoadingMoreAnimals: Boolean = false
+    var isLoadingMorePlayers: Boolean = false
     var isLastPage = false
 
     private val _state = MutableLiveData<PlayerNearYouViewState>()
@@ -81,7 +81,7 @@ class PlayersNearYouFragmentViewModel @Inject constructor(
     }
 
     private fun loadNextPlayersPage() {
-        isLoadingMoreAnimals = true
+        isLoadingMorePlayers = true
 
         val errorMessage = "Failed to fetch nearby Players"
         val exceptionHandler = viewModelScope.createExceptionHandler(errorMessage) { onFailure(it) }
@@ -91,7 +91,7 @@ class PlayersNearYouFragmentViewModel @Inject constructor(
                 requestNextPageOfPlayers(++currentPage)
             }
             onPaginationInfoObtained(pagination)
-            isLoadingMoreAnimals = false
+            isLoadingMorePlayers = false
         }
     }
 

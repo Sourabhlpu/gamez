@@ -1,11 +1,11 @@
 package sourabh.pal.cricket.common.data
 
 object ApiConstants {
-    const val BASE_ENDPOINT = "https://api.petfinder.com/v2/"  //Todo:1 add base endpoint when api is ready
+    const val BASE_ENDPOINT = "https://run.mocky.io/v3/"  //Todo:1 add base endpoint when api is ready
     const val SIGNUP_ENDPOINT = "signup"
     const val LOGIN_ENDPOINT = "login"
     const val AUTH_ENDPOINT = "token"
-    const val NEARBY_PLAYERS_ENDPOINT = "nearby"
+    const val NEARBY_PLAYERS_ENDPOINT = "632b2e7c-51ad-473d-855f-8727f9bab29c" //TODO:2 make it nearby when using real api
     const val ALL_SPORTS_ENDPOINT = "sports"
 
 }
