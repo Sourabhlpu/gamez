@@ -5,6 +5,8 @@ import sourabh.pal.cricket.common.data.api.GameApi
 import sourabh.pal.cricket.common.data.api.mappers.ApiPaginationMapper
 import sourabh.pal.cricket.common.data.api.mappers.ApiPlayerDetailsMapper
 import sourabh.pal.cricket.common.data.cache.Cache
+import sourabh.pal.cricket.common.data.cache.model.cachedplayer.CachedPlayerAggregate
+import sourabh.pal.cricket.common.data.cache.model.cachedsport.CachedSport
 import sourabh.pal.cricket.common.domain.model.player.Player
 import sourabh.pal.cricket.common.domain.model.player.details.PlayerWithDetails
 import sourabh.pal.cricket.common.domain.pagination.PaginatedPlayers
@@ -20,7 +22,9 @@ private val apiPaginationMapper: ApiPaginationMapper
     private val postcode = "07097"
     private val maxDistanceMiles = 100
     override fun getNearbyPlayers(): Flowable<List<Player>> {
-        TODO("Not yet implemented")
+        return cache.getAllPlayers()
+            .distinctUntilChanged()
+            .map { playersList -> playersList.map { it.player.toPlayerDomain() } }
     }
 
     override suspend fun requestMorePlayers(pageToLoad: Int, numberOfItems: Int): PaginatedPlayers {
@@ -38,6 +42,6 @@ private val apiPaginationMapper: ApiPaginationMapper
     }
 
     override suspend fun storePlayers(players: List<PlayerWithDetails>) {
-        TODO("Not yet implemented")
+        cache.storePlayers(players.map { CachedPlayerAggregate.fromDomain(it) })
     }
 }

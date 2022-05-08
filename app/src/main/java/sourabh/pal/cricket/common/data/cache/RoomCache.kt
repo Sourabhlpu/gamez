@@ -15,7 +15,7 @@ class RoomCache @Inject constructor(
         playerDao.insertPlayerWithDetails(players)
     }
 
-    override suspend fun getAllPlayers(): Flowable<List<CachedPlayerAggregate>> {
+    override  fun getAllPlayers(): Flowable<List<CachedPlayerAggregate>> {
         return playerDao.getAllPlayers()
     }
 

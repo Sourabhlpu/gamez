@@ -5,7 +5,7 @@ object ApiConstants {
     const val SIGNUP_ENDPOINT = "signup"
     const val LOGIN_ENDPOINT = "login"
     const val AUTH_ENDPOINT = "token"
-    const val NEARBY_PLAYERS_ENDPOINT = "632b2e7c-51ad-473d-855f-8727f9bab29c" //TODO:2 make it nearby when using real api
+    const val NEARBY_PLAYERS_ENDPOINT = "479646d5-5507-49cd-9b74-67b8db42f764" //TODO:2 make it nearby when using real api
     const val ALL_SPORTS_ENDPOINT = "sports"
 
 }

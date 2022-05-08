@@ -115,6 +115,12 @@ class PlayersNearYouFragmentViewModel @Inject constructor(
                     failure = Event(failure)
                 )
             }
+            else -> {
+                _state.value = state.value!!.copy(
+                    loading =  false,
+                    failure = Event(failure)
+                )
+            }
         }
     }
 

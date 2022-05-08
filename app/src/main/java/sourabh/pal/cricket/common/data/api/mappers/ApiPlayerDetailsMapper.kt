@@ -17,7 +17,7 @@ class ApiPlayerDetailsMapper @Inject constructor(
         return PlayerWithDetails(
             id = apiEntity.id ?: throw MappingException("Player ID cannot be null"),
             username = apiEntity.username.orEmpty(),
-            createdAt = DateTimeUtils.parse(apiEntity.createdAt.orEmpty()),
+            createdAt = DateTimeUtils.parse(apiEntity.createdAt),
             details = parsePlayerDetails(apiEntity.details)
         )
     }

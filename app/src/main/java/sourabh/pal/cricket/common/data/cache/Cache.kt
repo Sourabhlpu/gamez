@@ -9,7 +9,7 @@ interface Cache {
 
     suspend fun storePlayers(players: List<CachedPlayerAggregate>)
 
-    suspend fun getAllPlayers(): Flowable<List<CachedPlayerAggregate>>
+    fun getAllPlayers(): Flowable<List<CachedPlayerAggregate>>
 
     suspend fun storeSports(sports: List<CachedSport>)
 

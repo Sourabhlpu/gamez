@@ -3,6 +3,7 @@ package sourabh.pal.cricket.common.data.cache.model.cachedplayer
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import sourabh.pal.cricket.common.data.cache.model.cachedsport.CachedSport
+import sourabh.pal.cricket.common.domain.model.player.Player
 import sourabh.pal.cricket.common.domain.model.player.details.Contact
 import sourabh.pal.cricket.common.domain.model.player.details.Location
 import sourabh.pal.cricket.common.domain.model.player.details.PlayerDetails
@@ -41,6 +42,14 @@ data class CachedPlayerWithDetails(
             username = username,
             createdAt = DateTimeUtils.parse(createdAt),
             details = mapDetails(sports)
+        )
+    }
+
+    fun toPlayerDomain(): Player{
+        return Player(
+            id = playerId,
+            username = username,
+            createdAt = DateTimeUtils.parse(createdAt)
         )
     }
 
