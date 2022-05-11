@@ -39,6 +39,11 @@ android {
             includeAndroidResources = true
         }
     }
+    sourceSets {
+        androidTest {
+            assets.srcDirs = ["src/debug/assets"]
+        }
+    }
 }
 
 dependencies {

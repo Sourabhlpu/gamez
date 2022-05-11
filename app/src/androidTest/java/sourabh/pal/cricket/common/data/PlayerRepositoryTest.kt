@@ -1,12 +1,15 @@
 package sourabh.pal.cricket.common.data
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -25,6 +28,8 @@ import sourabh.pal.cricket.common.data.api.utils.FakeServer
 import sourabh.pal.cricket.common.data.cache.Cache
 import sourabh.pal.cricket.common.data.cache.GameDatabase
 import sourabh.pal.cricket.common.data.cache.RoomCache
+import sourabh.pal.cricket.common.data.cache.daos.PlayerDao
+import sourabh.pal.cricket.common.data.cache.daos.SportDao
 import sourabh.pal.cricket.common.data.di.CacheModule
 import sourabh.pal.cricket.common.data.di.PreferencesModule
 import sourabh.pal.cricket.common.data.preferences.FakePreferences
@@ -32,6 +37,7 @@ import sourabh.pal.cricket.common.data.preferences.Preferences
 import sourabh.pal.cricket.common.domain.repositories.PlayerRepository
 import java.time.Instant
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.math.exp
 
 @HiltAndroidTest
@@ -41,7 +47,7 @@ class PlayerRepositoryTest {
     private val fakeServer = FakeServer()
     private lateinit var repository: PlayerRepository
     private lateinit var api: GameApi
-    private lateinit var cache: Cache
+
 
     @get: Rule
     var hiltRule = HiltAndroidRule(this)
@@ -51,6 +57,9 @@ class PlayerRepositoryTest {
 
     @Inject
     lateinit var database: GameDatabase
+
+    @Inject
+    lateinit var cache: Cache
 
     @Inject
     lateinit var retrofitBuilder: Retrofit.Builder
@@ -68,7 +77,34 @@ class PlayerRepositoryTest {
 
     @Module
     @InstallIn(SingletonComponent::class)
-    object TestCacheModule {
+    abstract class TestCacheModule{
+
+        @Binds
+        abstract fun bindCache(cache: RoomCache): Cache
+
+        companion object {
+
+            @Provides
+            fun provideRoomDatabase(): GameDatabase {
+                return Room.inMemoryDatabaseBuilder(
+                    InstrumentationRegistry.getInstrumentation().context,
+                    GameDatabase::class.java
+                )
+                    .allowMainThreadQueries()
+                    .build()
+            }
+
+            @Provides
+            fun providePlayerDao(gameDatabase: GameDatabase): PlayerDao = gameDatabase.playerDao()
+
+            @Provides
+            fun provideSportDao(gameDatabase: GameDatabase): SportDao = gameDatabase.sportDao()
+        }
+    }
+    /*object TestCacheModule {
+
+        @Binds
+        fun bindCache(database: GameDatabase): Cache = RoomCache(database.sportDao(), database.playerDao())
 
         @Provides
         fun provideRoomDatabase(): GameDatabase {
@@ -79,7 +115,7 @@ class PlayerRepositoryTest {
                 .allowMainThreadQueries()
                 .build()
         }
-    }
+    }*/
 
     @Before
     fun setup(){
@@ -97,7 +133,7 @@ class PlayerRepositoryTest {
             .build()
             .create(GameApi::class.java)
 
-        cache = RoomCache(database.sportDao(), database.playerDao())
+        /*cache = RoomCache(database.sportDao(), database.playerDao())*/
 
         repository = PlayerRepositoryIml(
             api,

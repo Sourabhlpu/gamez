@@ -1,5 +1,7 @@
 package sourabh.pal.cricket.common.data.api.utils
 
+import android.util.Log
+import android.util.Log.e
 import androidx.test.platform.app.InstrumentationRegistry
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -8,6 +10,7 @@ import okhttp3.mockwebserver.RecordedRequest
 import sourabh.pal.cricket.common.data.ApiConstants
 import java.io.IOException
 import java.io.InputStream
+import java.util.logging.Logger
 
 class FakeServer {
     private val mockWebServer = MockWebServer()
@@ -52,6 +55,7 @@ class FakeServer {
             val jsonStream: InputStream = context.assets.open("networkresponses/$path")
             String(jsonStream.readBytes())
         } catch (exception: IOException) {
+            e("Fake_Server", "Error reading network response json asset")
             throw exception
         }
     }
