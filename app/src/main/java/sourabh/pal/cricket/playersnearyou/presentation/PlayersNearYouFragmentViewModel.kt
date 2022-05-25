@@ -77,7 +77,7 @@ class PlayersNearYouFragmentViewModel @Inject constructor(
         val currentList = _state.value!!.players
         val newPlayers = playersNearYou.subtract(currentList)
         val updateList = currentList + newPlayers
-        _state.value = state.value!!.copy(loading = false, players = playersNearYou)
+        _state.value = state.value!!.copy(loading = false, players = updateList)
     }
 
     private fun loadNextPlayersPage() {

@@ -3,4 +3,12 @@
     <string name="photo_description">Picture Of Player Near You</string>
     <string name="an_error_occurred">Error Occurred</string>
     <string name="players_near_you">Players Near You</string>
+    <string name="search_hint">Search Players</string>
+    <string name="interested_sport_dropdown_hint">Interested Sport</string>
+    <string name="distance_dropdown_menu_hint">Distance</string>
+    <string name="no_search_results_text_label">No Search Results</string>
+    <string name="a_sad_pug">A sad pug</string>
+    <string name="search_remotely_text_label">Searching Remotely</string>
+    <string name="initial_search_text_label">Please search to get players</string>
+    <string name="a_derpy_cat">Ball</string>
 </resources>
