@@ -5,15 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import sourabh.pal.cricket.common.domain.NoMorePlayersException
+import sourabh.pal.cricket.common.utils.DispatchersProvider
 import sourabh.pal.cricket.common.utils.createExceptionHandler
+import sourabh.pal.cricket.search.domain.usecases.GetSearchFilters
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchFragmentViewModel @Inject constructor(): ViewModel(){
+class SearchFragmentViewModel @Inject constructor(
+    private val getSearchFilters: GetSearchFilters,
+    private val dispatchersProvider: DispatchersProvider,
+    private val compositeDisposable: CompositeDisposable
+) : ViewModel() {
 
     val state: LiveData<SearchViewState> get() = _state
     private val _state: MutableLiveData<SearchViewState> = MutableLiveData()
@@ -28,8 +36,8 @@ class SearchFragmentViewModel @Inject constructor(): ViewModel(){
         _state.value = SearchViewState()
     }
 
-    fun onEvent(event: SearchEvent){
-        when(event){
+    fun onEvent(event: SearchEvent) {
+        when (event) {
             is SearchEvent.PrepareForSearch -> prepareForSearch()
         }
     }
@@ -39,28 +47,39 @@ class SearchFragmentViewModel @Inject constructor(): ViewModel(){
     }
 
     private fun loadFilterValues() {
-        val exceptionHandler =  createExceptionHandler(
+        val exceptionHandler = createExceptionHandler(
             message = "Failed to get filter values!"
         )
 
-        viewModelScope.launch(exceptionHandler){
-
+        viewModelScope.launch(exceptionHandler) {
+            withContext(dispatchersProvider.io()) {
+                val (interestedSports, maxDistance) = getSearchFilters()
+                updateStateWithFilterValues(interestedSports, maxDistance)
+            }
         }
     }
 
+    private fun updateStateWithFilterValues(interestedSports: List<String>, maxDistance: Double) {
+        _state.value =state.value!!.updateToReadyToSearch(interestedSports, maxDistance)
+    }
+
     private fun createExceptionHandler(message: String): CoroutineExceptionHandler {
-        return viewModelScope.createExceptionHandler(message){
+        return viewModelScope.createExceptionHandler(message) {
             onFailure(it)
         }
 
     }
 
     private fun onFailure(throwable: Throwable) {
-        _state.value = if(throwable is NoMorePlayersException){
+        _state.value = if (throwable is NoMorePlayersException) {
             state.value!!.updateToNoResultsAvailable()
-        }
-        else{
+        } else {
             state.value!!.updateToHasFailure(throwable)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

@@ -1,5 +1,6 @@
 package sourabh.pal.cricket.search.domain.models
 
-class SearchFilters(
-    val interestedSports: List<String>
+data class SearchFilters(
+    val interestedSports: List<String>,
+    val maxDistance: Double
 )

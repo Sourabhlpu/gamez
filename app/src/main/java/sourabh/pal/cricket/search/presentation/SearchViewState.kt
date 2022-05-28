@@ -7,15 +7,15 @@ data class SearchViewState(
     val noSearchQuery: Boolean = true,
     val searchResults: List<UIPlayer> = emptyList(),
     val sportsFilter: Event<List<String>> = Event(emptyList()),
-    val distanceFilters: Event<List<String>> = Event(emptyList()),
+    val maxDistance: Event<Double> = Event(0.0),
     val searchingRemotely: Boolean = false,
     val noRemoteResults: Boolean = false,
     val failure: Event<Throwable>? = null
 ){
-    fun updateToReadyToSearch(sports: List<String>, distance: List<String>): SearchViewState{
+    fun updateToReadyToSearch(sports: List<String>, maxDistance: Double): SearchViewState{
         return copy(
             sportsFilter = Event(sports),
-            distanceFilters = Event(distance)
+            maxDistance = Event(maxDistance)
         )
     }
 

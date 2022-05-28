@@ -9,4 +9,5 @@ interface PlayerRepository {
 fun getNearbyPlayers(): Flowable<List<Player>>
 suspend fun requestMorePlayers(pageToLoad: Int, numberOfItems: Int): PaginatedPlayers
 suspend fun storePlayers(players: List<PlayerWithDetails>)
+fun getMaxDistance(): Double
 }

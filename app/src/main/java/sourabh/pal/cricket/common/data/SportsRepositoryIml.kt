@@ -19,10 +19,9 @@ class SportsRepositoryIml @Inject constructor(
 
 ): SportsRepository {
 
-    override fun getAllSports(): Flowable<List<Sport>> {
-        return cache.getAllSports()
-            .distinctUntilChanged()
-            .map { sportsList -> sportsList.map { it.toDomain() } }
+    override fun getAllSports(): List<Sport> {
+        return cache.getAllSports().map { it.toDomain() }
+
     }
 
     override suspend fun storeSport(sports: List<Sport>) {

@@ -13,6 +13,8 @@ import sourabh.pal.cricket.common.domain.pagination.PaginatedPlayers
 import sourabh.pal.cricket.common.domain.repositories.PlayerRepository
 import javax.inject.Inject
 
+private const val MAX_DISTANCE = 100.0
+
 class PlayerRepositoryIml @Inject constructor(
 private val api: GameApi,
 private val cache: Cache,
@@ -44,5 +46,9 @@ private val apiPaginationMapper: ApiPaginationMapper
 
     override suspend fun storePlayers(players: List<PlayerWithDetails>) {
         cache.storePlayers(players.map { CachedPlayerAggregate.fromDomain(it) })
+    }
+
+    override fun getMaxDistance(): Double {
+        return MAX_DISTANCE
     }
 }
