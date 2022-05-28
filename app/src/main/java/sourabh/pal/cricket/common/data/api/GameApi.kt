@@ -28,5 +28,8 @@ interface GameApi {
     ): ApiPaginatedPlayers
 
     @GET(ApiConstants.ALL_SPORTS_ENDPOINT)
-    suspend fun getAllSports(): ApiPaginatedSports
+    suspend fun getAllSports(
+        @Query(ApiParameters.PAGE) pageToLoad: Int,
+        @Query(ApiParameters.LIMIT) pageSize: Int,
+    ): ApiPaginatedSports
 }

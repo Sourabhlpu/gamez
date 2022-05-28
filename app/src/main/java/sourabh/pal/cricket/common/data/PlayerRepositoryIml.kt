@@ -21,6 +21,7 @@ private val apiPaginationMapper: ApiPaginationMapper
 ) : PlayerRepository {
     private val postcode = "07097"
     private val maxDistanceMiles = 100
+
     override fun getNearbyPlayers(): Flowable<List<Player>> {
         return cache.getAllPlayers()
             .distinctUntilChanged()

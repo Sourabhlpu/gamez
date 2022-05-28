@@ -1,9 +1,66 @@
 package sourabh.pal.cricket.search.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
+import sourabh.pal.cricket.common.domain.NoMorePlayersException
+import sourabh.pal.cricket.common.utils.createExceptionHandler
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchFragmentViewModel @Inject constructor(): ViewModel(){
+
+    val state: LiveData<SearchViewState> get() = _state
+    private val _state: MutableLiveData<SearchViewState> = MutableLiveData()
+
+    private val querySubject = BehaviorSubject.create<String>()
+    private val sportSubject = BehaviorSubject.createDefault("")
+    private val distanceSubject = BehaviorSubject.createDefault(0.0)
+
+    private var currentPage = 0
+
+    init {
+        _state.value = SearchViewState()
+    }
+
+    fun onEvent(event: SearchEvent){
+        when(event){
+            is SearchEvent.PrepareForSearch -> prepareForSearch()
+        }
+    }
+
+    private fun prepareForSearch() {
+        loadFilterValues()
+    }
+
+    private fun loadFilterValues() {
+        val exceptionHandler =  createExceptionHandler(
+            message = "Failed to get filter values!"
+        )
+
+        viewModelScope.launch(exceptionHandler){
+
+        }
+    }
+
+    private fun createExceptionHandler(message: String): CoroutineExceptionHandler {
+        return viewModelScope.createExceptionHandler(message){
+            onFailure(it)
+        }
+
+    }
+
+    private fun onFailure(throwable: Throwable) {
+        _state.value = if(throwable is NoMorePlayersException){
+            state.value!!.updateToNoResultsAvailable()
+        }
+        else{
+            state.value!!.updateToHasFailure(throwable)
+        }
+    }
 }
