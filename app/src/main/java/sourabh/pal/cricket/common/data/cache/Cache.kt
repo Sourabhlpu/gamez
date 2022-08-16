@@ -15,4 +15,10 @@ interface Cache {
 
     fun getAllSports(): List<CachedSport>
 
+    fun searchPlayerBy(
+        name: String,
+        interestedSport: String,
+        maxDistance: Double
+    ): Flowable<List<CachedPlayerAggregate>>
+
 }

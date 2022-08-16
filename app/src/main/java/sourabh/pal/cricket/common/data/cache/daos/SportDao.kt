@@ -11,7 +11,7 @@ abstract class SportDao {
 
     @Transaction
     @Query("SELECT * FROM sports ORDER BY sportId DESC")
-    abstract fun getAllSports(): Flowable<List<CachedSport>>
+    abstract fun getAllSports(): List<CachedSport>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertSport(sport: CachedSport)

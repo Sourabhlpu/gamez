@@ -11,6 +11,8 @@ import sourabh.pal.cricket.common.domain.model.player.Player
 import sourabh.pal.cricket.common.domain.model.player.details.PlayerWithDetails
 import sourabh.pal.cricket.common.domain.pagination.PaginatedPlayers
 import sourabh.pal.cricket.common.domain.repositories.PlayerRepository
+import sourabh.pal.cricket.search.domain.models.SearchParameters
+import sourabh.pal.cricket.search.domain.models.SearchResults
 import javax.inject.Inject
 
 private const val MAX_DISTANCE = 100.0
@@ -50,5 +52,11 @@ private val apiPaginationMapper: ApiPaginationMapper
 
     override fun getMaxDistance(): Double {
         return MAX_DISTANCE
+    }
+
+    override fun searchCachedPlayerBy(searchParameters: SearchParameters): Flowable<SearchResults> {
+        val(name, interestedSport, maxDistance) = searchParameters
+
+        returu
     }
 }

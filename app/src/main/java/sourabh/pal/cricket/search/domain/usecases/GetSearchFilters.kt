@@ -10,8 +10,12 @@ class GetSearchFilters @Inject constructor(
     private val sportsRepository: SportsRepository
 ) {
 
+    companion object {
+        const val NO_FILTER_SELECTED = "Any"
+    }
+
     suspend operator fun invoke(): SearchFilters {
-        val sports = sportsRepository.getAllSports()
+        val sports = listOf(NO_FILTER_SELECTED) + sportsRepository.getAllSports()
             .map {
                 it.name.lowercase()
             }

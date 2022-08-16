@@ -6,6 +6,7 @@ import sourabh.pal.cricket.common.data.cache.daos.SportDao
 import sourabh.pal.cricket.common.data.cache.model.cachedplayer.CachedPlayerAggregate
 import sourabh.pal.cricket.common.data.cache.model.cachedsport.CachedSport
 import javax.inject.Inject
+import kotlin.math.max
 
 class RoomCache @Inject constructor(
     private val sportDao: SportDao,
@@ -23,7 +24,15 @@ class RoomCache @Inject constructor(
         sportDao.insertSports(sports)
     }
 
-    override suspend fun getAllSports(): Flowable<List<CachedSport>> {
+    override fun getAllSports(): List<CachedSport> {
         return sportDao.getAllSports()
+    }
+
+    override fun searchPlayerBy(
+        name: String,
+        interestedSport: String,
+        maxDistance: Double
+    ): Flowable<List<CachedPlayerAggregate>> {
+        return playerDao.searchPlayerBy(name, interestedSport, max())
     }
 }

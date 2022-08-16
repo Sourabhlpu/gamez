@@ -27,4 +27,13 @@ abstract class PlayerDao {
             )
         }
     }
+
+    @Transaction
+    @Query("""
+    SELECT * FROM players
+      WHERE username LIKE '%' || :name || '%' AND
+      AGE LIKE '%' || :age || '%'
+      AND type LIKE '%' || :type || '%'
+  """)
+    abstract fun searchPlayerBy(name: String, interestedSport: String, max: Any): Flowable<List<CachedPlayerAggregate>>
 }

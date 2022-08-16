@@ -39,7 +39,47 @@ class SearchFragmentViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.PrepareForSearch -> prepareForSearch()
+            else -> onSearchParametersUpdate(event)
         }
+    }
+
+    private fun onSearchParametersUpdate(event: SearchEvent) {
+        when (event) {
+            is SearchEvent.QueryInput -> updateQuery(event.input)
+            is SearchEvent.sportSelected -> updateSportValue(event.sport)
+            is SearchEvent.distanceSelected -> updateDistanceValue(event.distance)
+        }
+    }
+
+    private fun updateSportValue(sport: String) {
+        sportSubject.onNext(sport)
+    }
+
+    private fun updateDistanceValue(distance: Double) {
+        distanceSubject.onNext(distance)
+    }
+
+    private fun updateQuery(input: String) {
+        resetPagination()
+        querySubject.onNext(input)
+
+        if (input.isEmpty()) {
+            setNoSearchQueryState()
+        } else {
+            setSearchingState()
+        }
+    }
+
+    private fun setSearchingState() {
+        _state.value = state.value!!.updateToSearching()
+    }
+
+    private fun setNoSearchQueryState() {
+        _state.value = state.value!!.updateToNoSearchQuery()
+    }
+
+    private fun resetPagination() {
+        currentPage = 0
     }
 
     private fun prepareForSearch() {
@@ -60,7 +100,7 @@ class SearchFragmentViewModel @Inject constructor(
     }
 
     private fun updateStateWithFilterValues(interestedSports: List<String>, maxDistance: Double) {
-        _state.value =state.value!!.updateToReadyToSearch(interestedSports, maxDistance)
+        _state.value = state.value!!.updateToReadyToSearch(interestedSports, maxDistance)
     }
 
     private fun createExceptionHandler(message: String): CoroutineExceptionHandler {
